@@ -1,5 +1,6 @@
 const allowOrigins = [
     'http://www.reactfrontend.com',
+    'https://www.google.com',
     'http://localhost:5173'
 ]
 
