@@ -5,8 +5,8 @@ const app = express()
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 //const { logger } = require('./middleware/logEvents')
-//const errorHandler = require('./middleware/errorHandler')
-//const verifyJWT = require('./middleware/verifyJWT')
+const errorHandler = require('./middleware/errorHandler')
+const verifyJWT = require('./middleware/verifyJWT')
 const cookieParser = require('cookie-parser')
 const credentials = require('./middleware/credentials')
 const mongoose = require('mongoose')
@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3500
 
 //Connect to MongoDB
 connectDB()
+
+// custom middleware logger
+// app.use(logger);
 
 // Handle options credentials check - before CORS!
 // and fetch cookies credentials requirement
@@ -33,13 +36,26 @@ app.use(express.json())
 app.use(cookieParser())
 
 //routes
+app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'))
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
+app.use('/logout', require('./routes/logout'))
+
+app.use(verifyJWT);
+app.use('/employees', require('./routes/api/employees'));
+app.use('/users', require('./routes/api/users'))
 
 app.all('*', (req, res) => {
-    res.status(404).json({ "error": "404 Not Found"})
-})
+    res.status(404);
+    if (req.accepts('json')) {
+        res.json({ "error": "404 Not Found" });
+    } else {
+        res.type('txt').send("404 Not Found");
+    }
+});
+
+app.use(errorHandler);
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
