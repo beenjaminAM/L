@@ -14,9 +14,6 @@ const handleNewUser = async (req, res) => {
     try {
         //encrypt the password
         const hashedPwd = await bcrypt.hash(pwd, 12)
-        
-        const forceError = null
-        forceError.toString() 
 
         //create and store the new user
         const result = await User.create({

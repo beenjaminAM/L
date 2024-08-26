@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 
 const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies
+    console.log("Cookies", cookies)
+
     if (!cookies?.jwt) {
         return res.sendStatus(401)
     }
@@ -30,7 +32,7 @@ const handleRefreshToken = async (req, res) => {
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '10s'}
             )
-            res.json({ roles, accessToken })
+            res.json({ user: decoded.username, roles, accessToken })
         }
     )
 }
