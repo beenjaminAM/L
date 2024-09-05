@@ -7,9 +7,9 @@ const verifyRoles = require('../../middleware/verifyRoles');
 router.route('/')
     .get(syllabusController.getAllSyllabus)
     .post(syllabusController.createNewSyllabu)
+    .put(syllabusController.updateSyllabu);
 
 router.route('/:id')
     .get(syllabusController.getSyllabu)
-    .put(syllabusController.updateSyllabu);
 
 module.exports = router;

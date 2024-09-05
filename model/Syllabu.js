@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const syllabuSchema = new Schema({
     periodo: {
-        type: Number,
+        type: String,
         required: true,
     },
     nombreCurso: {

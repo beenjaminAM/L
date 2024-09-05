@@ -13,7 +13,11 @@ const courseSchema = new Schema({
     requirement: {
         type: String,
         enum: ['Required', 'Elective']
-    }
+    },
+    sumilla: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('Course', courseSchema);

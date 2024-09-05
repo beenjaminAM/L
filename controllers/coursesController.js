@@ -7,11 +7,11 @@ const getAllCourses = async (req, res) => {
 }
 
 const createNewCourse = async (req, res) => {
-    const { name, hours, requirement } = req.body;
+    const { name, hours, sumilla, requirement } = req.body;
 
     // Validar campos requeridos
-    if (!name || !hours) {
-        return res.status(400).json({ message: 'Name and hours are required' });
+    if (!name || !hours || !sumilla) {
+        return res.status(400).json({ message: 'Name, sumilla and hours are required' });
     }
 
     // Validar requirement
@@ -23,6 +23,7 @@ const createNewCourse = async (req, res) => {
         const result = await Course.create({
             name: name,
             hours: hours,
+            sumilla: sumilla,
             requirement: requirement
         });
 
@@ -33,11 +34,11 @@ const createNewCourse = async (req, res) => {
 }
 
 const getCourse = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ 'message': 'Course ID required.' });
+    if (!req?.params?.id || !req?.params?.id.match(/^[0-9a-fA-F]{24}$/)) return res.status(400).json({ 'message': 'Course ID required.' });
 
     const course = await Course.findOne({ _id: req.params.id }).exec();
-    if (!course) {
-        return res.status(204).json({ "message": `No course matches ID ${req.params.id}.` });
+    if (!course) { 
+            return res.status(204).json({ "message": `No course matches ID ${req.params.id}.` });
     }
     res.json(course);
 }

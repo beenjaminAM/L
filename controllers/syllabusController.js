@@ -60,7 +60,7 @@ const createNewSyllabu = async (req, res) => {
 }
 
 const getSyllabu = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ 'message': 'Syllabu ID required.' });
+    if (!req?.params?.id || !req?.params?.id.match(/^[0-9a-fA-F]{24}$/)) return res.status(400).json({ 'message': 'Syllabu ID required.' });
 
     const syllabu = await Syllabu.findOne({ _id: req.params.id }).exec();
     if (!syllabu) {
@@ -102,6 +102,10 @@ const updateSyllabu = async (req, res) => {
         if (req.body?.material) {
             syllabu.materiales = syllabu.materiales || {};
             syllabu.materiales.material = req.body.material;
+        }
+        if (req.body?.estrategia) {
+            syllabu.estrategias = syllabu.estrategias || {};
+            syllabu.estrategias.estrategia = req.body.estrategia;
         }
         if (req.body?.teorico) {
             syllabu.programacion = syllabu.programacion || {};
