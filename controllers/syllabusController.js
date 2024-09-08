@@ -115,17 +115,39 @@ const updateSyllabu = async (req, res) => {
             syllabu.programacion = syllabu.programacion || {};
             syllabu.programacion.practico = req.body.practico;
         }
-        if (req.body?.parcial) {
-            syllabu.evaluacion = syllabu.evaluacion || {};
-            syllabu.evaluacion.parcial = req.body.parcial;
+
+        // Validación de enteros
+        const esEntero = (valor) => Number.isInteger(valor);
+        
+        // Validar parcial
+        if (req.body?.parcial !== undefined) {
+            const parcial = parseInt(req.body.parcial, 10);
+            if (esEntero(parcial)) {
+                syllabu.evaluacion = syllabu.evaluacion || {};
+                syllabu.evaluacion.parcial = parcial;
+            } else {
+                return res.status(400).json({ message: 'El campo "parcial" debe ser un número entero.' });
+            }
         }
-        if (req.body?.final) {
-            syllabu.evaluacion = syllabu.evaluacion || {};
-            syllabu.evaluacion.final = req.body.final;
+        // Validar final
+        if (req.body?.final !== undefined) {
+            const final = parseInt(req.body.final, 10);
+            if (esEntero(final)) {
+                syllabu.evaluacion = syllabu.evaluacion || {};
+                syllabu.evaluacion.final = final;
+            } else {
+                return res.status(400).json({ message: 'El campo "final" debe ser un número entero.' });
+            }
         }
-        if (req.body?.evaluacionContinua) {
-            syllabu.evaluacion = syllabu.evaluacion || {};
-            syllabu.evaluacion.evaluacionContinua = req.body.evaluacionContinua;
+        // Validar evaluacionContinua
+        if (req.body?.evaluacionContinua !== undefined) {
+            const evaluacionContinua = parseInt(req.body.evaluacionContinua, 10);
+            if (esEntero(evaluacionContinua)) {
+                syllabu.evaluacion = syllabu.evaluacion || {};
+                syllabu.evaluacion.evaluacionContinua = evaluacionContinua;
+            } else {
+                return res.status(400).json({ message: 'El campo "evaluacionContinua" debe ser un número entero.' });
+            }
         }
         if (req.body?.bibliografia) {
             syllabu.bibliografia = syllabu.bibliografia || {};
