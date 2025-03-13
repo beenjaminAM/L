@@ -4,13 +4,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "set PORT=1234&& jest --verbose --watchAll --runInBand"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

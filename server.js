@@ -41,8 +41,6 @@ app.use('/register', require('./routes/register'))
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'))
-app.use('/courses', require('./routes/api/courses'))
-app.use('/syllabus', require('./routes/api/syllabus'))
 
 app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
@@ -59,7 +57,13 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-mongoose.connection.once('open', () => {
+/*mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+});*/
+
+const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = {
+    server
+}
