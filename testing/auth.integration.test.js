@@ -2,7 +2,7 @@ const {
     api
 } = require('./helpers')
 
-const { server } = require('../serverModel')
+const { server } = require('../server')
 const mongoose = require('mongoose')
 const User = require('../model/User')
 

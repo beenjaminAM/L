@@ -22,11 +22,16 @@ async function getAllUsers() {
     return users
 }
 
+auxUser = {
+    user: 'tomas',
+    pwd: "tomas"
+}
 
 module.exports = {
     api,
     initialUsers,
     getAllUsers,
+    auxUser
 }
 
 
