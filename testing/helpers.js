@@ -10,8 +10,16 @@ const api = new supertest(app)
 const initialUsers = 
     [
         {
-            user: 'tomas',
-            pwd: "tomas"
+            user: 'Jhon',
+            pwd: 'jh0n'
+        }
+    ]
+
+const initialEmployees = 
+    [
+        {
+            firstname: 'John',
+            lastname: 'Doe'        
         }
     ]
 
@@ -31,7 +39,8 @@ module.exports = {
     api,
     initialUsers,
     getAllUsers,
-    auxUser
+    auxUser,
+    initialEmployees
 }
 
 
