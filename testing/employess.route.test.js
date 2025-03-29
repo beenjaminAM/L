@@ -51,3 +51,20 @@ it('Should return 401 Unauthorized for GET, POST, PUT, and DELETE requests witho
     expect(resDEL.statusCode).toBe(401)
 
 })
+
+describe('GET /employees with credentials', () => {
+
+    it('Should return 200 and employee list if employees exist', async () => {
+
+        const authResponse = await api.post('/auth').send(auxUser)
+
+        const resGET = await api.get('/employees')
+            .set('Authorization', `Bearer ${authResponse.body.accessToken}`)
+            .send()
+        
+        expect(resGET.statusCode).toBe(200)
+        expect(response.body).toHaveLength(initialEmployees.length)
+    
+    })
+
+})
